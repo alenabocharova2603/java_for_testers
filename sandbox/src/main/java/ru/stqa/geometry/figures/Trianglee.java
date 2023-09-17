@@ -9,7 +9,8 @@ public class Trianglee {
     }
 
     public static void printSquereTriangle(double a, double b, double c) {
-        System.out.println("Площадь треугольника со сторонами " + a + " , " + b + " , " + c + " = " +  squereTriangelee(a,b,c));
+        String text = String.format("Площадь треугольника со сторонами %f , %f , %f = %f", a, b, c, squereTriangelee(a, b, c));
+        System.out.println(text);
     }
 
     public static double squereTriangelee(double a, double b, double c) {
@@ -17,7 +18,8 @@ public class Trianglee {
     }
 
     public static void printPerimetrTriangle(double a, double b, double c) {
-     System.out.println("Периметр треугольника со сторонами " + a + " , " + b + " , " + c + " = " +  perimetrTriangelee(a,b,c));
+        String text = String.format("Периметр треугольника со сторонами  %f , %f , %f = %f", a, b, c, perimetrTriangelee(a, b, c));
+        System.out.println(text);
     }
 
     public static double perimetrTriangelee(double a, double b, double c) {

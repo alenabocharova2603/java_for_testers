@@ -12,7 +12,7 @@ public class TriangleTests {
     }
     @Test
     void canCalculateTrianglePerimeter(){
-       /* double result = Triangle.perimetr(5, 7, 10);*/
-        Assertions.assertEquals(22.0, new Triangle(5,7,10).perimetr());
+       /* double result = Triangle.perimeter(5, 7, 10);*/
+        Assertions.assertEquals(22.0, new Triangle(5,7,10).perimeter());
     }
 }

@@ -16,34 +16,22 @@ public class Triangle {
         this.sideC = c;
     }
 
-
-
-
     public static void main(String[] args) {
-        printTrianglePerimeter(5,7,10);
-        printTriangleArea(4,6,6);
+        printTrianglePerimeter(new Triangle(5,7,10));
+        printTriangleArea(new Triangle(4,6,6));
     }
 
 
-    public static void printTriangleArea(double a, double b, double c) {
-        String text = String.format("Площадь треугольника со сторонами %.2f , %.2f , %.2f = %.2f", a, b, c, area(a, b, c));
+    public static void printTriangleArea(Triangle triangle) {
+        String text = String.format("Площадь треугольника со сторонами %.2f , %.2f , %.2f = %.2f", triangle.sideA, triangle.sideB, triangle.sideC, triangle.area());
         System.out.println(text);
     }
 
 
-    public static double area(double a, double b, double c) {
-        return sqrt(((a+b+c)/2)*(((a+b+c)/2)-a)*(((a+b+c)/2)-b)*(((a+b+c)/2)-c));
-    }
 
-
-    public static void printTrianglePerimeter(double a, double b, double c) {
-        String text = String.format("Периметр треугольника со сторонами %.2f , %.2f , %.2f = %.2f", a, b, c, perimetr(a, b, c));
+    public static void printTrianglePerimeter(Triangle triangle) {
+        String text = String.format("Периметр треугольника со сторонами %.2f , %.2f , %.2f = %.2f", triangle.sideA, triangle.sideB, triangle.sideC, triangle.perimeter());
         System.out.println(text);
-    }
-
-
-    public static double perimetr(double a, double b, double c) {
-        return a+b+c;
     }
 
 
@@ -52,7 +40,7 @@ public class Triangle {
     }
 
 
-    public double perimetr() {
+    public double perimeter() {
         return this.sideA+this.sideB+this.sideC;
     }
 }

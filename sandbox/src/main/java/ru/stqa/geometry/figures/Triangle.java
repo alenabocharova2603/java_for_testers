@@ -16,7 +16,7 @@ public record Triangle(double a, double b, double c) {
      }
 
     public double area() {
-        return sqrt(((this.a+this.b+this.c)/2)*(((this.a+this.b+this.c)/2)-this.a)*(((this.a+this.b+this.c)/2)-this.b)*(((this.a+this.b+this.c)/2)-this.c));
+        return sqrt(perimeter()/2*(perimeter()/2-this.a)*(perimeter()/2-this.b)*(perimeter()/2-this.c));
     }
 
     public static void printTrianglePerimeter(Triangle t) {

@@ -5,6 +5,16 @@ import static java.lang.Math.sqrt;
 
 public record Triangle(double a, double b, double c) {
 
+    public Triangle{
+        if (a < 0 || b < 0  || c < 0) {
+            throw new IllegalArgumentException("Triangle side should be non-negative");
+        }
+        if ( a > (b+c) || b > (a+c) || c > (a+b)) {
+            throw new IllegalArgumentException("Triangle side  not should be greater, than the sum of the other two sides");
+        }
+    }
+
+
     public static void main(String[] args) {
         printTrianglePerimeter(new Triangle(5,7,10));
         printTriangleArea(new Triangle(4,6,6));

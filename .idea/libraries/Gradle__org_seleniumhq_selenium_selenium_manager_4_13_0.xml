@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.seleniumhq.selenium:selenium-manager:4.13.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.seleniumhq.selenium" artifactId="selenium-manager" version="4.13.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-manager/4.13.0/d474cc621720e47e9f00ef7f4fec8cc76643d41b/selenium-manager-4.13.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.selenium/selenium-manager/4.13.0/bad2f5ac4735c3e7214ad9fae0d912dc4b591ec5/selenium-manager-4.13.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

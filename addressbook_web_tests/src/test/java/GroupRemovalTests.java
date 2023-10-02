@@ -6,17 +6,19 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class GroupRemovalTests {
-    private static WebDriver driver;
+    private WebDriver driver;
 
     @BeforeEach
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\Chrome\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("http://localhost/addressbook/");
-        driver.manage().window().setSize(new Dimension(1054, 808));
+        driver.manage().window().setSize(new Dimension(550, 693));
         driver.findElement(By.name("user")).sendKeys("admin");
+        driver.findElement(By.name("pass")).click();
         driver.findElement(By.name("pass")).sendKeys("secret");
         driver.findElement(By.cssSelector("input:nth-child(7)")).click();
 
@@ -33,10 +35,19 @@ public class GroupRemovalTests {
         if (!isElementPresent(By.name("new"))) {
             driver.findElement(By.linkText("groups")).click();
         }
+        if (!isElementPresent(By.name("selected[]"))) {
+            driver.findElement(By.name("new")).click();
+            driver.findElement(By.name("group_name")).click();
+            driver.findElement(By.name("group_name")).sendKeys("group name");
+            driver.findElement(By.name("group_header")).sendKeys("group header");
+            driver.findElement(By.name("group_footer")).click();
+            driver.findElement(By.name("group_footer")).sendKeys("group footer");
+            driver.findElement(By.name("submit")).click();
+            driver.findElement(By.linkText("group page")).click();
+        }
         driver.findElement(By.name("selected[]")).click();
-        driver.findElement(By.cssSelector("input:nth-child(11)")).click();
+        driver.findElement(By.name("delete")).click();
         driver.findElement(By.linkText("group page")).click();
-
     }
     private boolean isElementPresent(By locator) {
         try {

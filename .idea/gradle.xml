@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/addressbook_web_tests" />
+            <option value="$PROJECT_DIR$/addressbook_web_tests/addressbook-web-tests" />
           </set>
         </option>
       </GradleProjectSettings>

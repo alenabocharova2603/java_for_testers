@@ -10,10 +10,10 @@ public class TestBase {
     @BeforeEach
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\Chrome\\chromedriver.exe");
-        System.setProperty("webdriver.firefox.driver", "C:\\Firefox\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "C:\\Firefox\\geckodriver.exe");
         if (app == null) {
             app = new ApplicationManager();
-            app.init(System.getProperty("browser", "chrome"));
+            app.init(System.getProperty("browser", "firefox"));
         }
 
     }

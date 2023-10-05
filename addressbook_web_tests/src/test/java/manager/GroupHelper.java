@@ -1,6 +1,6 @@
 package manager;
 
-import model.GroupDate;
+import model.GroupData;
 import org.openqa.selenium.By;
 
 public class GroupHelper {
@@ -22,7 +22,7 @@ public class GroupHelper {
         return manager.isElementPresent(By.name("selected[]"));
     }
 
-    public void createGroup(GroupDate group) {
+    public void createGroup(GroupData group) {
         openGroupsPage();
         manager.driver.findElement(By.name("new")).click();
         manager.driver.findElement(By.name("group_name")).click();
@@ -36,8 +36,36 @@ public class GroupHelper {
 
     public void removeGroup() {
         openGroupsPage();
-        manager.driver.findElement(By.name("selected[]")).click();
+        selectGroup();
         manager.driver.findElement(By.name("delete")).click();
         manager.driver.findElement(By.linkText("group page")).click();
+    }
+
+    public void modifyGroup(GroupData modifiedGroup) {
+        openGroupsPage();
+        selectGroup();
+        initGroupModification();
+        fillGroupForm(modifiedGroup);
+        submitGroupModification();
+        returnToGroupsPage();
+    }
+
+    private void returnToGroupsPage() {
+    }
+
+    private void submitGroupModification() {
+
+    }
+
+    private void fillGroupForm(GroupData modifiedGroup) {
+
+    }
+
+    private void initGroupModification() {
+        manager.driver.findElement(By.name("edit")).click();
+    }
+
+    private void selectGroup() {
+        manager.driver.findElement(By.name("selected[]")).click();
     }
 }

@@ -36,6 +36,34 @@ public class TestBase {
         driver.findElement(By.linkText("group page")).click();
     }
 
+    protected static void openHomePage() {
+        driver.findElement(By.linkText("home")).click();
+    }
+
+    protected static void openAddNewPage() {
+        driver.findElement(By.linkText("add new")).click();
+    }
+
+    protected static void CreateContact(String firstname, String lastname, String address, String mobile, String email) {
+        driver.findElement(By.name("firstname")).click();
+        driver.findElement(By.name("firstname")).sendKeys("Nina");
+        driver.findElement(By.name("lastname")).click();
+        driver.findElement(By.name("lastname")).sendKeys("Ivanova");
+        driver.findElement(By.name("address")).click();
+        driver.findElement(By.name("address")).sendKeys("3 Internacounal, 243");
+        driver.findElement(By.name("mobile")).click();
+        driver.findElement(By.name("mobile")).sendKeys("+98567841456");
+        driver.findElement(By.name("email")).click();
+        driver.findElement(By.name("email")).sendKeys("nina_kot@koler.com");
+        driver.findElement(By.name("submit")).click();
+    }
+
+    protected static void RemoveContact() {
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.cssSelector(".left:nth-child(8) > input")).click();
+        driver.switchTo().alert().accept();
+    }
+
     @BeforeEach
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\Chrome\\chromedriver.exe");
@@ -59,6 +87,10 @@ public class TestBase {
         } catch (NoSuchElementException exception) {
             return false;
         }
+    }
+
+    protected boolean isContactPresent() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
 

@@ -1,3 +1,5 @@
+package tests;
+
 import model.DateGroup;
 import org.junit.jupiter.api.Test;
 
@@ -5,20 +7,20 @@ public class CreateGroupTest extends TestBase {
 
   @Test
   public void canCreateGroup() {
-    openGroupsPage();
-    createGroup(new DateGroup("name group", "header group", "footer group"));
+    TestBase.app.openGroupsPage();
+    TestBase.app.createGroup(new DateGroup("name group", "header group", "footer group"));
   }
 
   @Test
   public void canCreateGroupWithEmptyName() {
-    openGroupsPage();
-    createGroup(new DateGroup());
+    TestBase.app.openGroupsPage();
+    TestBase.app.createGroup(new DateGroup());
   }
   @Test
   public void canCreateGroupWithNameOnly() {
-    openGroupsPage();
+    TestBase.app.openGroupsPage();
     var emptyGroup = new DateGroup();
     var groupWithName = emptyGroup.withName("some name");
-    createGroup(groupWithName);
+    TestBase.app.createGroup(groupWithName);
   }
 }

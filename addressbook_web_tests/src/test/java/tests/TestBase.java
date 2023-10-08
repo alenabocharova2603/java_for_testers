@@ -13,7 +13,7 @@ public class TestBase {
         System.setProperty("webdriver.gecko.driver", "C:\\Firefox\\geckodriver.exe");
         if (app == null) {
             app = new ApplicationManager();
-            app.init(System.getProperty("browser", "chrome"));
+            app.init(System.getProperty("browser", "firefox"));
         }
 
     }

@@ -7,12 +7,12 @@ public class RemoveGroupTest extends TestBase {
 
 
     @Test
-    public void deletegroup() {
-        TestBase.app.openGroupsPage();
-        if (!TestBase.app.isGroupPresent()) {
-            TestBase.app.createGroup(new DateGroup("group name", "group header", "group footer"));
+    public void deleteGroup() {
+        app.groups().openGroupsPage();
+        if (!app.groups().isGroupPresent()) {
+            app.groups().createGroup(new DateGroup("group name", "group header", "group footer"));
         }
-        TestBase.app.removeGroup();
+        app.groups().removeGroup();
     }
 
 }

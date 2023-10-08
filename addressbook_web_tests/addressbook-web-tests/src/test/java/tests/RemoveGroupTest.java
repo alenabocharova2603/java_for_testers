@@ -8,7 +8,6 @@ public class RemoveGroupTest extends TestBase {
 
     @Test
     public void deleteGroup() {
-        app.groups().openGroupsPage();
         if (!app.groups().isGroupPresent()) {
             app.groups().createGroup(new DateGroup("group name", "group header", "group footer"));
         }

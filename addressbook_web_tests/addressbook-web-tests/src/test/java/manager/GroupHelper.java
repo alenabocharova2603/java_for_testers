@@ -18,6 +18,7 @@ public class GroupHelper {
     }
 
     public void createGroup(DateGroup group) {
+        openGroupsPage();
       manager.driver.findElement(By.name("new")).click();
       manager.driver.findElement(By.name("group_name")).click();
       manager.driver.findElement(By.name("group_name")).sendKeys(group.name());
@@ -30,10 +31,12 @@ public class GroupHelper {
     }
 
     public boolean isGroupPresent() {
+        openGroupsPage();
         return manager.contacts().manager.isElementPresent(By.name("selected[]"));
     }
 
     public void removeGroup() {
+        openGroupsPage();
         manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.name("delete")).click();
         manager.driver.findElement(By.linkText("group page")).click();

@@ -20,6 +20,7 @@ public class ContactHelper {
     }
 
     public  void createContact(ContactData contact) {
+        openAddNewPage();
         manager.driver.findElement(By.name("firstname")).click();
         manager.driver.findElement(By.name("firstname")).sendKeys(contact.firstname());
         manager.driver.findElement(By.name("lastname")).click();
@@ -34,10 +35,12 @@ public class ContactHelper {
     }
 
     public boolean isContactPresent() {
+        openAddNewPage();
         return manager.contacts().manager.isElementPresent(By.name("selected[]"));
     }
 
     public void removeContact() {
+        openHomePage();
         manager.driver.findElement(By.name("selected[]")).click();
         manager.driver.findElement(By.cssSelector(".left:nth-child(8) > input")).click();
         manager.driver.switchTo().alert().accept();

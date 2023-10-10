@@ -3,12 +3,12 @@ package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
 
-public class ContactHelper {
-    final ApplicationManager manager;
+public class ContactHelper extends HelperBase {
+
 
     public ContactHelper(ApplicationManager manager) {
 
-        this.manager = manager;
+        super(manager);
     }
 
     public void openHomePage() {

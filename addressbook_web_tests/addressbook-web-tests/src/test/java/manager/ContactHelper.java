@@ -1,5 +1,4 @@
 package manager;
-
 import model.ContactData;
 import org.openqa.selenium.By;
 
@@ -12,17 +11,19 @@ public class ContactHelper extends HelperBase {
     }
 
     public void openHomePage() {
-        manager.driver.findElement(By.linkText("home")).click();
+
+        click(By.linkText("home"));
     }
 
     public void openAddNewPage() {
-        manager.driver.findElement(By.linkText("add new")).click();
+
+        click(By.linkText("add new"));
     }
 
-    public  void createContact(ContactData contact) {
+    public void createContact(ContactData contact) {
         openAddNewPage();
         fillContactForm(contact);
-        manager.driver.findElement(By.name("submit")).click();
+        click(By.name("submit"));
     }
 
     public boolean isContactPresent() {
@@ -33,7 +34,7 @@ public class ContactHelper extends HelperBase {
     public void removeContact() {
         openHomePage();
         selectContact();
-        manager.driver.findElement(By.cssSelector(".left:nth-child(8) > input")).click();
+        click(By.cssSelector(".left:nth-child(8) > input"));
         manager.driver.switchTo().alert().accept();
     }
 
@@ -48,15 +49,16 @@ public class ContactHelper extends HelperBase {
     }
 
     private void returnToContactPage() {
-        manager.driver.findElement(By.linkText("home page")).click();
+        click(By.linkText("home page"));
     }
 
     private void updateContactModification() {
-        manager.driver.findElement(By.name("update")).click();
+
+        click(By.name("update"));
     }
 
     private void initContactModification() {
-        manager.driver.findElement(By.cssSelector("tr:nth-child(2) > .center:nth-child(8) img")).click();
+        click(By.cssSelector("tr:nth-child(2) > .center:nth-child(8) img"));
     }
 
     private void fillContactForm(ContactData contact) {
@@ -68,6 +70,6 @@ public class ContactHelper extends HelperBase {
     }
 
     private void selectContact() {
-        manager.driver.findElement(By.name("selected[]")).click();
+        click(By.name("selected[]"));
     }
 }

@@ -1,7 +1,6 @@
 package tests;
 
 import model.ContactData;
-import model.DateGroup;
 import org.junit.jupiter.api.Test;
 
 public class ContactModificationTest extends TestBase{

@@ -9,26 +9,10 @@ public class ContactHelper extends HelperBase {
 
         super(manager);
     }
-
-    public void openHomePage() {
-
-        click(By.linkText("home"));
-    }
-
-    public void openAddNewPage() {
-
-        click(By.linkText("add new"));
-    }
-
     public void createContact(ContactData contact) {
         openAddNewPage();
         fillContactForm(contact);
         click(By.name("submit"));
-    }
-
-    public boolean isContactPresent() {
-        openAddNewPage();
-        return manager.contacts().manager.isElementPresent(By.name("selected[]"));
     }
 
     public void removeContact() {
@@ -45,7 +29,21 @@ public class ContactHelper extends HelperBase {
         fillContactForm(modifiedContact);
         updateContactModification();
         returnToContactPage();
+    }
 
+    public void openHomePage() {
+
+        click(By.linkText("home"));
+    }
+
+    public void openAddNewPage() {
+
+        click(By.linkText("add new"));
+    }
+
+    public boolean isContactPresent() {
+        openAddNewPage();
+        return manager.contacts().manager.isElementPresent(By.name("selected[]"));
     }
 
     private void returnToContactPage() {

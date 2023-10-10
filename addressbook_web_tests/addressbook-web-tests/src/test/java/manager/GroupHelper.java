@@ -37,16 +37,17 @@ public class GroupHelper {
 
     public void openGroupsPage() {
         if (!manager.contacts().manager.isElementPresent(By.name("new"))) {
-            manager.driver.findElement(By.linkText("groups")).click();
+            click(By.linkText("groups"));
         }
     }
-    
+
     private void submitGroupCreation() {
-        manager.driver.findElement(By.name("submit")).click();
+        click(By.name("submit"));
     }
 
+
     private void initGroupCreation() {
-        manager.driver.findElement(By.name("new")).click();
+        click(By.name("new"));
     }
 
     public boolean isGroupPresent() {
@@ -56,32 +57,38 @@ public class GroupHelper {
 
 
     private void removeSelectedGroup() {
-        manager.driver.findElement(By.name("delete")).click();
+        click(By.name("delete"));
     }
 
 
     private void returnToGroupsPage() {
-        manager.driver.findElement(By.linkText("group page")).click();
+        click(By.linkText("group page"));
     }
 
     private void submitGroupModification() {
-     manager.driver.findElement(By.name("update")).click();
+        click(By.name("update"));
     }
 
     private void fillGroupForm(DateGroup group) {
-        manager.driver.findElement(By.name("group_name")).click();
-        manager.driver.findElement(By.name("group_name")).sendKeys(group.name());
-        manager.driver.findElement(By.name("group_header")).click();
-        manager.driver.findElement(By.name("group_header")).sendKeys(group.header());
-        manager.driver.findElement(By.name("group_footer")).click();
-        manager.driver.findElement(By.name("group_footer")).sendKeys(group.footer());
+        type(By.name("group_name"), group.name());
+        type(By.name("group_header"), group.header());
+        type(By.name("group_footer"), group.footer());
+    }
+
+    private void type(By locator, String text) {
+        click(locator);
+        manager.driver.findElement(locator).clear();
+        manager.driver.findElement(locator).sendKeys(text);
     }
 
     private void initGroupModification() {
-     manager.driver.findElement(By.name("edit")).click();
+        click(By.name("edit"));
     }
 
     private void selectedGroup() {
-        manager.driver.findElement(By.name("selected[]")).click();
+        click(By.name("selected[]"));
+    }
+    private void click(By locator) {
+        manager.driver.findElement(locator).click();
     }
 }

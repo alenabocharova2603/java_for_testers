@@ -26,4 +26,12 @@ public class GroupCreationTests extends TestBase {
         //ApplicationManager.driver.findElement(By.linkText("groups")).click();
         app.groups().createGroup(new GroupData().withName("some name"));
     }
+    @Test
+    public void CanCreateMultipleGroup() {
+        int n = 5;
+        int groupCount = app.groups().getCount();
+        app.groups().createGroup(new GroupData("group name", "group header", "group footer"));
+        int newGroupCount = app.groups().getCount();
+        Assertions.assertEquals(groupCount + 1, newGroupCount);
+    }
 }

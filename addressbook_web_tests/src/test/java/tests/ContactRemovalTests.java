@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class ContactRemovalTests extends TestBase {
 
@@ -18,6 +19,9 @@ public class ContactRemovalTests extends TestBase {
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         app.contacts().removeContact(oldContacts.get(index));
+        /*try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (Exception e) {}*/
         var newContacts = app.contacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.remove(index);

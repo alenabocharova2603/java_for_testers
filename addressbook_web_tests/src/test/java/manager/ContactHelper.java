@@ -21,7 +21,9 @@ public class ContactHelper extends HelperBase {
         openHomePage();
         selectContact(contact);
         click(By.cssSelector(".left:nth-child(8) > input"));
+        
         manager.driver.switchTo().alert().accept();
+
     }
 
     public void removeSelectedContacts() {

@@ -94,10 +94,10 @@ public class ContactHelper extends HelperBase {
 
     public List<ContactData> getList() {
         var contacts = new ArrayList<ContactData>();
-        var tds = manager.driver.findElements(By.cssSelector("td.center"));
-        for (var td : tds) {
-            var name = td.getText();
-            var checkbox = td.findElement(By.name("selected[]"));
+        var trs = manager.driver.findElements(By.xpath("//tr[@name=\'entry\']"));//manager.driver.findElements(By.cssSelector("tr.name.entry"));
+        for (var tr : trs) {
+            var name = tr.getText();
+            var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
             contacts.add(new ContactData().withId(id).withFirstname(name));
         }

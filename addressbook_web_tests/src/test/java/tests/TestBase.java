@@ -19,7 +19,7 @@ public class TestBase {
         }
 
     }
-    public String randomString(int n) {
+    public static String randomString(int n) {
         var rnd = new Random();
         var result = "";
         for (int i = 0; i < n; i++) {

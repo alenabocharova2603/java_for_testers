@@ -1,6 +1,8 @@
 package manager;
 import model.ContactData;
 import org.openqa.selenium.By;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -15,9 +17,9 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void removeContact() {
+    public void removeContact(ContactData contact) {
         openHomePage();
-        selectContact();
+        selectContact(contact);
         click(By.cssSelector(".left:nth-child(8) > input"));
         manager.driver.switchTo().alert().accept();
     }
@@ -30,7 +32,7 @@ public class ContactHelper extends HelperBase {
 
     public void modifyContact(ContactData modifiedContact) {
         openHomePage();
-        selectContact();
+        selectContact(null);
         initContactModification();
         fillContactForm(modifiedContact);
         updateContactModification();
@@ -68,8 +70,8 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contact.email());
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     public int getContactCount() {
@@ -88,5 +90,17 @@ public class ContactHelper extends HelperBase {
         for (var checkbox : checkboxes) {
             checkbox.click();
         }
+    }
+
+    public List<ContactData> getList() {
+        var contacts = new ArrayList<ContactData>();
+        var tds = manager.driver.findElements(By.cssSelector("td.center"));
+        for (var td : tds) {
+            var name = td.getText();
+            var checkbox = td.findElement(By.name("selected[]"));
+            var id = checkbox.getAttribute("value");
+            contacts.add(new ContactData().withId(id).withFirstname(name));
+        }
+        return contacts;
     }
 }

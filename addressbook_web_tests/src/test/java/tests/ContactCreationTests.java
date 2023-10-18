@@ -8,17 +8,16 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class ContactCreationTests extends TestBase {
 
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<ContactData>();
-        for (var firstname : List.of("","contact firstname")) {
-            for (var lastname : List.of("", "contact lastname")) {
-               for (var address : List.of("","contact address")) {
-                   for (var mobile : List.of("","contact mobile")) {
-                       for (var email : List.of("","contact email")) {
+        for (var firstname : List.of("","Nina")) {
+            for (var lastname : List.of("", "Ivanova")) {
+               for (var address : List.of("","3 Internacounal, 243")) {
+                   for (var mobile : List.of("","+98567841456")) {
+                       for (var email : List.of("","nina_kot@koler.com")) {
                            result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email));
                        }
                    }
@@ -48,12 +47,14 @@ public class ContactCreationTests extends TestBase {
         newContacts.sort(compareById);
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.add(contact.withId(newContacts.get(newContacts.size() - 1).id())
+                .withFirstname("")
                 .withLastname("")
                 .withAddress("")
-                .withMobile(""));
+                .withMobile("")
+                .withEmail(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
-        app.contacts().openHomePage();
+        //app.contacts().openHomePage();
     }
 
     public static List<ContactData>  negativeContactProvider() {

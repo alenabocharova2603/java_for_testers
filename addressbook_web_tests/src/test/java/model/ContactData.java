@@ -22,7 +22,7 @@ public record ContactData(String id, String firstname, String lastname, String a
     public ContactData withMobile(String mobile) {
         return new ContactData(this.id, this.firstname, this.lastname, this.address, mobile, this.email);
     }
-    public ContactData withEmail(String lastname) {
+    public ContactData withEmail(String email) {
         return new ContactData(this.id, this.firstname, this.lastname, this.address, this.mobile, email);
     }
 }

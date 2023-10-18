@@ -1,5 +1,6 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,8 +19,8 @@ public class ContactCreationTests extends TestBase {
                 for (var address : List.of("", "3 Internacounal, 243")) {
                     for (var mobile : List.of("", "+98567841456")) {
                         for (var email : List.of("", "nina_kot@koler.com")) {
-                            for (var photo : List.of("src/test/resources/images/avatar.png", "src/test/resources/images/avatar.png")) {
-                                result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email).withPhoto(photo));
+                            for (var photo : List.of("", "src/test/resources/images/avatar.png")) {
+                                result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email).withPhoto(randomFile("src/test/resources/images/")));
                             }
                         }
                     }
@@ -28,12 +29,12 @@ public class ContactCreationTests extends TestBase {
         }
         for (int i = 0; i < 5; i++) {
             result.add(new ContactData()
-                    .withFirstname(randomString(i * 10))
-                    .withLastname(randomString(i * 10))
-                    .withAddress(randomString(i * 10))
-                    .withMobile(randomString(i * 10))
-                    .withEmail(randomString(i * 10))
-                    .withPhoto("src/test/resources/images/avatar.png"));
+                    .withFirstname(CommonFunctions.randomString(i * 10))
+                    .withLastname(CommonFunctions.randomString(i * 10))
+                    .withAddress(CommonFunctions.randomString(i * 10))
+                    .withMobile(CommonFunctions.randomString(i * 10))
+                    .withEmail(CommonFunctions.randomString(i * 10))
+                    .withPhoto(randomFile("src/test/resources/images/")));
         }
         return result;
     }

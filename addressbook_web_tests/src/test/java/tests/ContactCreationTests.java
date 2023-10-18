@@ -15,13 +15,15 @@ public class ContactCreationTests extends TestBase {
         var result = new ArrayList<ContactData>();
         for (var firstname : List.of("","Nina")) {
             for (var lastname : List.of("", "Ivanova")) {
-               for (var address : List.of("","3 Internacounal, 243")) {
-                   for (var mobile : List.of("","+98567841456")) {
-                       for (var email : List.of("","nina_kot@koler.com")) {
-                           result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email));
-                       }
-                   }
-               }
+                for (var address : List.of("", "3 Internacounal, 243")) {
+                    for (var mobile : List.of("", "+98567841456")) {
+                        for (var email : List.of("", "nina_kot@koler.com")) {
+                            for (var photo : List.of("src/test/resources/images/avatar.png", "src/test/resources/images/avatar.png")) {
+                                result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email).withPhoto(photo));
+                            }
+                        }
+                    }
+                }
             }
         }
         for (int i = 0; i < 5; i++) {
@@ -30,7 +32,8 @@ public class ContactCreationTests extends TestBase {
                     .withLastname(randomString(i * 10))
                     .withAddress(randomString(i * 10))
                     .withMobile(randomString(i * 10))
-                    .withEmail(randomString(i * 10)));
+                    .withEmail(randomString(i * 10))
+                    .withPhoto("src/test/resources/images/avatar.png"));
         }
         return result;
     }
@@ -51,7 +54,8 @@ public class ContactCreationTests extends TestBase {
                 .withLastname("")
                 .withAddress("")
                 .withMobile("")
-                .withEmail(""));
+                .withEmail("")
+                .withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
         //app.contacts().openHomePage();
@@ -59,7 +63,7 @@ public class ContactCreationTests extends TestBase {
 
     public static List<ContactData>  negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "firstname' ","","","","")));
+                new ContactData("", "firstname' ","","","","","src/test/resources/images/avatar.png")));
         return result;
     }
 

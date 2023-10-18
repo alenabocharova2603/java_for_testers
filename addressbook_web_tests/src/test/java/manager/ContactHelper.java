@@ -21,7 +21,6 @@ public class ContactHelper extends HelperBase {
         openHomePage();
         selectContact(contact);
         click(By.cssSelector(".left:nth-child(8) > input"));
-        
         manager.driver.switchTo().alert().accept();
 
     }
@@ -32,9 +31,9 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void modifyContact(ContactData modifiedContact) {
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
-        selectContact(null);
+        selectContact(contact);
         initContactModification();
         fillContactForm(modifiedContact);
         updateContactModification();

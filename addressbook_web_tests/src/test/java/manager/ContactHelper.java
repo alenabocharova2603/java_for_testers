@@ -94,6 +94,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public List<ContactData> getList() {
+        openHomePage();
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.xpath("//tr[@name=\'entry\']"));//manager.driver.findElements(By.cssSelector("tr.name.entry"));
         for (var tr : trs) {

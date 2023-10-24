@@ -60,7 +60,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void initContactModification() {
-        click(By.cssSelector("tr:nth-child(2) > .center:nth-child(8) img"));
+        click(By.xpath("//img[@alt='Edit']"));
     }
 
     private void fillContactForm(ContactData contact) {
@@ -102,7 +102,7 @@ public class ContactHelper extends HelperBase {
             var name = tr.getText();
             var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
-            contacts.add(new ContactData().withId(id)/*.withFirstname(name)*/);
+            contacts.add(new ContactData().withId(id).withFirstname(name));
         }
         return contacts;
     }

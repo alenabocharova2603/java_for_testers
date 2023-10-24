@@ -20,6 +20,7 @@ public class ApplicationManager {
     public void init(String browser) {
         System.setProperty("webdriver.chrome.driver", "C:\\Chrome\\chromedriver.exe");
         System.setProperty("webdriver.gecko.driver", "C:\\Firefox\\geckodriver.exe");
+
         if (driver == null) {
             if ("firefox".equals(browser)) {
                 driver = new FirefoxDriver();
@@ -28,6 +29,7 @@ public class ApplicationManager {
         } else {
             throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
         }
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
         driver.get("http://localhost/addressbook/");
         driver.manage().window().setSize(new Dimension(550, 693));

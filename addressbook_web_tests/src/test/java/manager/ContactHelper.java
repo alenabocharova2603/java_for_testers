@@ -22,6 +22,7 @@ public class ContactHelper extends HelperBase {
         selectContact(contact);
         click(By.cssSelector(".left:nth-child(8) > input"));
         manager.driver.switchTo().alert().accept();
+        manager.driver.findElement(By.cssSelector("div.msgbox"));
 
     }
 
@@ -99,10 +100,14 @@ public class ContactHelper extends HelperBase {
         var contacts = new ArrayList<ContactData>();
         var trs = manager.driver.findElements(By.xpath("//tr[@name=\'entry\']"));//manager.driver.findElements(By.cssSelector("tr.name.entry"));
         for (var tr : trs) {
-            var name = tr.getText();
+            var lName = tr.findElement(By.xpath(".//td[2]"));
+            var fName = tr.findElement(By.xpath(".//td[3]"));
+            var sL_Name = lName.getText();
+            var sF_Name = fName.getText();
+
             var checkbox = tr.findElement(By.name("selected[]"));
             var id = checkbox.getAttribute("value");
-            contacts.add(new ContactData().withId(id).withFirstname(name));
+            contacts.add(new ContactData().withId(id).withFirstname(sF_Name).withLastname(sL_Name));
         }
         return contacts;
     }

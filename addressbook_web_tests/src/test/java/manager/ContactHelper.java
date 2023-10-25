@@ -35,7 +35,7 @@ public class ContactHelper extends HelperBase {
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
         selectContact(contact);
-        initContactModification();
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         updateContactModification();
         returnToContactPage();
@@ -59,8 +59,12 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@name='update']"));
     }
 
-    private void initContactModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    private void initContactModification(ContactData contact) {
+        var row = manager.driver.findElement(By.xpath(
+                String.format("//input[@id='%s']/parent::td/parent::tr", contact.id())
+                )
+        );
+        row.findElement(By.xpath(".//img[@alt='Edit']")).click();
     }
 
     private void fillContactForm(ContactData contact) {

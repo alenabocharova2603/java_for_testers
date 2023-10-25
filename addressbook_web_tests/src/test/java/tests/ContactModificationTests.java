@@ -15,16 +15,19 @@ public class ContactModificationTests extends TestBase{
         if (app.contacts().getContactCount() == 0) {
             app.contacts().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", ""));
         }
+
         var oldContacts = app.contacts().getList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         var testContact = new ContactData().withFirstname("modified name");
+
         app.contacts().modifyContact(oldContacts.get(index), testContact);
+
         var newContacts = app.contacts().getList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testContact.withId(oldContacts.get(index).id())
-                .withFirstname("")
-                .withLastname("")
+                .withFirstname(testContact.firstname())
+                .withLastname(testContact.lastname())
                 .withAddress("")
                 .withMobile("")
                 .withEmail("")
@@ -34,6 +37,6 @@ public class ContactModificationTests extends TestBase{
         };
         newContacts.sort(compareById);
         expectedList.sort(compareById);
-        Assertions.assertEquals(newContacts, expectedList);
+        Assertions.assertEquals(newContacts,expectedList);
     }
 }

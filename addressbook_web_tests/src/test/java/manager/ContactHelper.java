@@ -56,8 +56,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void updateContactModification() {
-
-        click(By.name("update"));
+        click(By.xpath("//input[@name='update']"));
     }
 
     private void initContactModification() {
@@ -70,7 +69,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
         type(By.name("email"), contact.email());
-        attach(By.name("photo"),contact.photo());
+        //attach(By.name("photo"),contact.photo());
     }
 
     private void selectContact(ContactData contact) {

@@ -5,12 +5,13 @@ import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import common.CommonFunctions;
+import model.ContactData;
 import model.GroupData;
-
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static tests.TestBase.randomFile;
 
 public class Generator {
 
@@ -62,19 +63,17 @@ public class Generator {
     }
 
     private Object generateContacts() {
-        return null;
-        /* var result = new ArrayList<ContactData>();
-         for (int i = 0; i < count; i++) {
+        var result = new ArrayList<ContactData>();
+         for (int i = 0; i < 5; i++) {
             result.add(new ContactData()
                     .withFirstname(CommonFunctions.randomString(i * 10))
                     .withLastname(CommonFunctions.randomString(i * 10))
                     .withAddress(CommonFunctions.randomString(i * 10))
                     .withMobile(CommonFunctions.randomString(i * 10))
-                    .withEmail(CommonFunctions.randomString(i * 10))
-                    .withPhoto(randomFile("src/test/resources/images/")));
+                    .withEmail(CommonFunctions.randomString(i * 10)));
+                   // .withPhoto(randomFile("src/test/resources/images/")));
         }
         return result;
- */
     }
 
     private void save(Object data) throws IOException {

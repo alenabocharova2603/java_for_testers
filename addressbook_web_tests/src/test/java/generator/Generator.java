@@ -11,8 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static tests.TestBase.randomFile;
-
 public class Generator {
 
     @Parameter(names = {"--type", "-t"})

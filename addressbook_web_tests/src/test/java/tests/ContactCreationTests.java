@@ -1,41 +1,44 @@
 package tests;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    public static List<ContactData> contactProvider() {
+    public static List<ContactData> contactProvider() throws IOException {
         var result = new ArrayList<ContactData>();
-        for (var firstname : List.of("","Nina")) {
-            for (var lastname : List.of("", "Ivanova")) {
-                for (var address : List.of("", "3 Internacounal, 243")) {
-                    for (var mobile : List.of("", "+98567841456")) {
-                        for (var email : List.of("", "nina_kot@koler.com")) {
-                            for (var photo : List.of("", "src/test/resources/images/avatar.png")) {
-                                result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email).withPhoto(randomFile("src/test/resources/images/")));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < 5; i++) {
-            result.add(new ContactData()
-                    .withFirstname(CommonFunctions.randomString(i * 10))
-                    .withLastname(CommonFunctions.randomString(i * 10))
-                    .withAddress(CommonFunctions.randomString(i * 10))
-                    .withMobile(CommonFunctions.randomString(i * 10))
-                    .withEmail(CommonFunctions.randomString(i * 10))
-                    .withPhoto(randomFile("src/test/resources/images/")));
-        }
+//        for (var firstname : List.of("","Nina")) {
+//            for (var lastname : List.of("", "Ivanova")) {
+//                for (var address : List.of("", "3 Internacounal, 243")) {
+//                    for (var mobile : List.of("", "+98567841456")) {
+//                        for (var email : List.of("", "nina_kot@koler.com")) {
+//                            for (var photo : List.of("", "src/test/resources/images/avatar.png")) {
+//                                result.add(new ContactData().withFirstname(firstname).withLastname(lastname).withAddress(address).withMobile(mobile).withEmail(email).withPhoto(randomFile("src/test/resources/images/")));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+        var json = Files.readString(Paths.get("contacts.json"));
+        ObjectMapper mapper = new ObjectMapper();
+        var value = mapper.readValue(json,  new TypeReference<List<ContactData>>() {});
+        result.addAll(value);
         return result;
     }
 

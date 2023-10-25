@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -15,9 +16,11 @@ public class ApplicationManager {
     private GroupHelper groups;
     private ContactHelper contacts;
 
+    private Properties properties;
 
 
-    public void init(String browser) {
+    public void init(String browser, Properties properties) {
+        this.properties = properties;
         System.setProperty("webdriver.chrome.driver", "C:\\Chrome\\chromedriver.exe");
         System.setProperty("webdriver.gecko.driver", "C:\\Firefox\\geckodriver.exe");
 
@@ -31,9 +34,9 @@ public class ApplicationManager {
         }
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
-        driver.get("http://localhost/addressbook/");
+        driver.get(properties.getProperty("web.baseUrl"));
         driver.manage().window().setSize(new Dimension(550, 693));
-        session().login("admin", "secret");
+        session().login(properties.getProperty("web.username"), properties.getProperty("web.password"));
     }
     public LoginHelper session() {
        if (session == null) {

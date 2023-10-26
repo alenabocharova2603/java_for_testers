@@ -15,7 +15,7 @@ dependencies {
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.13.0'
     implementation 'org.jcommander:jcommander:1.83'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
-
+    implementation 'com.mysql:mysql-connector-j:8.1.0'
 }
 
 test {

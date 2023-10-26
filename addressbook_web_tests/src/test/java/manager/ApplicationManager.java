@@ -15,8 +15,8 @@ public class ApplicationManager {
     private LoginHelper session;
     private GroupHelper groups;
     private ContactHelper contacts;
-
     private Properties properties;
+    private JdbcHelper jdbc;
 
 
     public void init(String browser, Properties properties) {
@@ -58,7 +58,12 @@ public class ApplicationManager {
         }
         return contacts;
     }
-
+    public JdbcHelper jdbc() {
+        if (jdbc == null) {
+            jdbc = new JdbcHelper(this);
+        }
+        return jdbc;
+    }
     public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);

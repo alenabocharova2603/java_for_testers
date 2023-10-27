@@ -61,10 +61,13 @@ public class ContactHelper extends HelperBase {
 
     private void initContactModification(ContactData contact) {
         var row = manager.driver.findElement(By.xpath(
-                String.format("//input[@id='%s']/parent::td/parent::tr", contact.id())
+                //String.format("//input[@id='%s']/parent::td/parent::tr", contact.id())
+                String.format("//a[@href='edit.php?id=%s']", contact.id())
                 )
         );
-        row.findElement(By.xpath(".//img[@alt='Edit']")).click();
+
+        row.click();
+        //row.findElement(By.xpath(".//img[@alt='Edit']")).click();
     }
 
     private void fillContactForm(ContactData contact) {

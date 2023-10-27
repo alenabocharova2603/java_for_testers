@@ -51,9 +51,9 @@ public class ContactCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("singleRandomContact")
     public void canCreateContact(ContactData contact) {
-        var oldContacts = app.jdbc().getContactList();
+        var oldContacts = app.hbm().getContactList();
         app.contacts().createContact(contact);
-        var newContacts = app.jdbc().getContactList();
+        var newContacts = app.hbm().getContactList();
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
@@ -62,20 +62,15 @@ public class ContactCreationTests extends TestBase {
 
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.add(contact.withId(maxId));
-//                .withFirstname(contact.firstname())
-//                .withLastname(contact.lastname())
-//                .withAddress("")
-//                .withMobile("")
-//                .withEmail("")
-//                .withPhoto(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(expectedList, newContacts);
         //app.contacts().openHomePage();
+
     }
 
     public static List<ContactData>  negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of(
-                new ContactData("", "firstname' ","","","","","src/test/resources/images/avatar.png")));
+                new ContactData("", "firstname' ","","","","")));
         return result;
     }
 

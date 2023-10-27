@@ -13,7 +13,7 @@ public class ContactModificationTests extends TestBase{
     @Test
     void canModifyContact() {
         if (app.contacts().getContactCount() == 0) {
-            app.contacts().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", ""));
+            app.contacts().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com"));
         }
 
         var oldContacts = app.contacts().getList();
@@ -30,8 +30,7 @@ public class ContactModificationTests extends TestBase{
                 .withLastname(testContact.lastname())
                 .withAddress("")
                 .withMobile("")
-                .withEmail("")
-                .withPhoto(""));
+                .withEmail(""));
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };

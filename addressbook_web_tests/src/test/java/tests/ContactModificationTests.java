@@ -22,12 +22,12 @@ public class ContactModificationTests extends TestBase{
         app.contacts().modifyContact(oldContacts.get(index), testContact);
         var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
-        expectedList.set(index, testContact.withId(oldContacts.get(index).id())
-                .withFirstname(testContact.firstname())
-                .withLastname(testContact.lastname())
-                .withAddress("")
-                .withMobile("")
-                .withEmail(""));
+        expectedList.set(index, testContact.withId(oldContacts.get(index).id()));
+//                .withFirstname(testContact.firstname())
+//                .withLastname(testContact.lastname())
+//                .withAddress("")
+//                .withMobile("")
+//                .withEmail(""));
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };

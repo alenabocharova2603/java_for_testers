@@ -78,9 +78,31 @@ public class HibernateHelper extends HelperBase {
         return new ContactData("" + record.id, record.firstname, record.lastname, record.address, record.mobile, record.email);
     }
 
+    private static ContactRecord convertContact(ContactData data) {
+        var id = data.id();
+        if("".equals(id)) {
+            id = "0";
+        }
+        return new ContactRecord(Integer.parseInt(id), data.firstname(), data.lastname(), data.address(), data.mobile(), data.email());
+    }
+
     public List<ContactData> getContactList() {
         return  convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
         }));
+    }
+
+    public long getContactCount() {
+        return sessionFactory.fromSession(session -> {
+            return session.createQuery("select count (*) from ContactRecord", Long.class).getSingleResult();
+        });
+    }
+
+    public void createContact(ContactData contactData) {
+        sessionFactory.inSession(session -> {
+            session.getTransaction().begin();
+            session.persist(convertContact(contactData));
+            session.getTransaction().commit();
+        });
     }
 }

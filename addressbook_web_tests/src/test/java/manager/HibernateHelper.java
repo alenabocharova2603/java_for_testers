@@ -20,7 +20,7 @@ public class HibernateHelper extends HelperBase {
                         //.addAnnotatedClass(Book.class)
                         .addAnnotatedClass(ContactRecord.class)
                         .addAnnotatedClass(GroupRecord.class)
-                        .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
+                        .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
                         .setProperty(AvailableSettings.USER, "root")
                         .setProperty(AvailableSettings.PASS, "")
                         .buildSessionFactory();
@@ -75,7 +75,12 @@ public class HibernateHelper extends HelperBase {
     }
 
     private static ContactData convertContact(ContactRecord record) {
-        return new ContactData("" + record.id, record.firstname, record.lastname, record.address, record.mobile, record.email);
+        return new ContactData().withId("" + record.id)
+                .withFirstname(record.firstname)
+                .withLastname(record.lastname)
+                .withAddress(record.address)
+                .withMobile(record.mobile)
+                .withEmail(record.email);
     }
 
     private static ContactRecord convertContact(ContactData data) {

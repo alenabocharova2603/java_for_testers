@@ -4,10 +4,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -83,4 +84,24 @@ public class ContactCreationTests extends TestBase {
         Assertions.assertEquals(newContacts, oldContacts);
         app.contacts().openHomePage();
     }
+
+    @Test
+    void canCreateContactInGroup() {
+        var contact = new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+                .withMobile(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+        }
+        var group = app.hbm().getGroupList().get(0);
+
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        app.contacts().createContact(contact,group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+    }
+
 }

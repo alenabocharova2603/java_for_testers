@@ -38,6 +38,7 @@ public class ContactCreationTests extends TestBase {
         ObjectMapper mapper = new ObjectMapper();
         var value = mapper.readValue(json,  new TypeReference<List<ContactData>>() {});
         result.addAll(value);
+
         return result;
     }
     public static List<ContactData> singleRandomContact() {

@@ -1,6 +1,7 @@
 package tests;
 
 import manager.ApplicationManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.File;
@@ -26,6 +27,11 @@ public class TestBase {
             app.init(System.getProperty("browser", "firefox"), properties);
         }
 
+    }
+
+    @AfterEach
+    void checkDatabaseConsistency() {
+        app.jdbc().checkConsistency();
     }
 
     public static String randomFile(String dir) {

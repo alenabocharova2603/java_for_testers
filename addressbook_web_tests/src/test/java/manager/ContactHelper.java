@@ -45,6 +45,11 @@ public class ContactHelper extends HelperBase {
         manager.driver.switchTo().alert().accept();
     }
 
+    public void removeContactFromGroup(ContactData contactForDelete) {
+        selectContact(contactForDelete);
+        manager.driver.findElement(By.name("remove")).click();
+    }
+
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
@@ -131,4 +136,10 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public void selectGroupById(GroupData groupData) {
+        ////select[@name='group']
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(groupData.id());
+    }
+
 }

@@ -33,7 +33,7 @@ public class ApplicationManager {
         } else {
             throw new IllegalArgumentException(String.format("Unknown browser %s", browser));
         }
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
         driver.get(properties.getProperty("web.baseUrl"));
         driver.manage().window().setSize(new Dimension(550, 693));

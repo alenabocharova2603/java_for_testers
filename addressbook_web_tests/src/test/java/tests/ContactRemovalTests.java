@@ -5,6 +5,7 @@ import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class ContactRemovalTests extends TestBase {
@@ -64,10 +65,19 @@ public class ContactRemovalTests extends TestBase {
         var oldContacts = app.hbm().getContactsInGroup(groupData);
         app.contacts().selectGroupById(groupData);
         app.contacts().removeContactFromGroup(contactForDelete);
-        var newContats = app.hbm().getContactsInGroup(groupData);
+        var newContacts = app.hbm().getContactsInGroup(groupData);
         var expectedList = new ArrayList<>(oldContacts);
-        /*ContactData finalContactForDelete = contactForDelete;
-        expectedList.removeIf(contactData -> contactData.id() == finalContactForDelete.id());*/
+
+        ContactData finalContactForDelete = contactForDelete;
+        expectedList.removeIf(contactData -> finalContactForDelete.id().equals(contactData.id()));
+
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        expectedList.sort(compareById);
+        newContacts.sort(compareById);
+
+        Assertions.assertEquals(expectedList, newContacts);
     }
 
 

@@ -3,6 +3,7 @@ import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +139,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectGroupById(GroupData groupData) {
-        ////select[@name='group']
+        openHomePage();
         new Select(manager.driver.findElement(By.name("group"))).selectByValue(groupData.id());
     }
 

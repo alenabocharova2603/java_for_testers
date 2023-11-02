@@ -21,7 +21,7 @@ public record Square (double side){
         return this.side * this.side;
     }
 
-    public double perimeter() {
+    public double printPerimeter() {
         return 4* this.side;
     }
 }

@@ -32,6 +32,15 @@ public class ContactRecord {
     @Column(name = "email")
     public String email;
 
+    @Column(name = "home")
+    public String home;
+
+    @Column(name = "work")
+    public String work;
+
+    @Column(name = "phone2")
+    public String phone2;
+
 //    public Date deprecated = null;
 //    public String middlename = "";
 //    public String nickname =  "";

@@ -3,10 +3,7 @@ package ru.stqa.collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CollectionTests {
 
@@ -22,6 +19,7 @@ public class CollectionTests {
     }
     @Test
     void listTests() {
+
         var list = new ArrayList<String>(List.of("a", "b", "c","a"));
         Assertions.assertEquals(4,list.size());
         Assertions.assertEquals("a", list.get(0));
@@ -37,5 +35,16 @@ public class CollectionTests {
 
         set.add("d");
         Assertions.assertEquals(4,set.size());
+    }
+
+    @Test
+    void testMap() {
+        var digits = new HashMap<Character, String>();
+        digits.put('1', "one");
+        digits.put('2', "two");
+        digits.put('3', "three");
+        Assertions.assertEquals("one", digits.get('1'));
+        digits.put('1', "один");
+        Assertions.assertEquals("one", digits.get('1'));
     }
 }

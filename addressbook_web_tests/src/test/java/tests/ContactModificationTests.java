@@ -13,7 +13,9 @@ public class ContactModificationTests extends TestBase{
     @Test
     void canModifyContact() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", ""));
+            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243",
+                    "+98567841456", "nina_kot@koler.com", "+4954723212453", "+1214314323", "+3225331144",
+                    "Joew@yandex.ru", "outlook@outlook.com", "75 3rd Ave, New York, NY 10003, USA"));
         }
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();

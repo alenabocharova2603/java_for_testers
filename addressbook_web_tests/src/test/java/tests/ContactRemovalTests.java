@@ -14,7 +14,7 @@ public class ContactRemovalTests extends TestBase {
     @Test
     public void canRemoveContact() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", ""));
+            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "","","",""));
         }
         var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
@@ -29,7 +29,7 @@ public class ContactRemovalTests extends TestBase {
     @Test
     void canRemoveAllContactAtOnce() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", ""));
+            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "","","",""));
         }
         app.contacts().removeAllContacts();
         Assertions.assertEquals(0,  app.contacts().getContactCount());
@@ -56,7 +56,7 @@ public class ContactRemovalTests extends TestBase {
         if (contactForDelete == null) {
             groupData = groupList.get(0);
             app.contacts().createContact(
-                    new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", ""),
+                    new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "","","",""),
                     groupData
             );
             var contacts = app.hbm().getContactsInGroup(groupData);

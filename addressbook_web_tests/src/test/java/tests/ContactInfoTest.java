@@ -10,18 +10,17 @@ import java.util.stream.Stream;
 //тесты на проверку того, что информация в адресной книге предствалена корректно (данные между БД и пользовательским интерфейсом совпадают)
 public class ContactInfoTest extends  TestBase {
 
-//    @Test
-//    void testPhones() {
-//     var contacts = app.hbm().getContactList();
-//        var phones = app.contacts().getPhones();
-//        for (var contact : contacts) {
-//            var phones = app.contacts().getPhones(contact);
-//            var expected = Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary())
-//                    .filter(s -> s != null && !"".equals(s))
-//                    .collect(Collectors.joining("\n"));
-//            Assertions.assertEquals(expected, phones);
-//        }
-//    }
+    @Test
+    void testPhones() {
+     var contacts = app.hbm().getContactList();
+     var expected = contacts.stream().collect(Collectors.toMap(ContactData::id, contact ->
+         Stream.of(contact.home(), contact.mobile(), contact.work(), contact.secondary())
+                 .filter(s -> s != null && !"".equals(s))
+                 .collect(Collectors.joining("\n"))
+     ));
+     var phones = app.contacts().getPhones();
+     Assertions.assertEquals(expected, phones);
+    }
 
 
     @Test

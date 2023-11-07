@@ -40,6 +40,5 @@ public class MailHelper extends HelperBase{
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

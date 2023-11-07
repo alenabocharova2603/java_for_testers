@@ -14,8 +14,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.13.0'
     testImplementation "com.squareup.okhttp3:okhttp:4.11.0"
-    testImplementation("com.squareup.okhttp3:okhttp-urlconnection:4.11.0")
-    implementation 'org.eclipse.angus:angus-mail:2.0.2'
+    testImplementation "com.squareup.okhttp3:okhttp-urlconnection:4.11.0"
+    testImplementation 'org.eclipse.angus:angus-mail:2.0.2'
 }
 
 test {

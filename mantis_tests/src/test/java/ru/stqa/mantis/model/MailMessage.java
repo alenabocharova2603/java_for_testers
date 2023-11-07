@@ -1,6 +1,6 @@
 package ru.stqa.mantis.model;
 
-public class MailMessage (String from, String content){
+public record MailMessage(String from, String content) {
     public MailMessage() {
         this("","");
     }

@@ -10,7 +10,6 @@ public class RegistrationHelper extends HelperBase {
     }
 
     public void canCreateUser(UserRegistration registration) {
-    //openStartPage();
     pushLinkForRegistration();
     fillRegistrationForm(registration);
     clickSignup();
@@ -18,17 +17,26 @@ public class RegistrationHelper extends HelperBase {
     }
 
     private void clickSignup() {
-        manager.driver().findElement(By.name("Signup"));
+        manager.driver().findElement(By.xpath("//input[@value='Signup']")).click();
     }
 
     private void pushLinkForRegistration() {
-        manager.driver().findElement(By.cssSelector(".back-to-login-link"));
+        manager.driver().findElement(By.xpath("//a[@href='signup_page.php']")).click();
     }
 
     private void fillRegistrationForm(UserRegistration registration) {
-        type(By.name("User1"), registration.username());
-        type(By.name("user1@localhost"), registration.email());
+        type(By.name("username"), registration.username());
+        type(By.name("email"), registration.email());
     }
 
+    public void canConfirmUser(String realName, String password) {
+        type(By.name("realname"), realName);
+        type(By.name("password"), password);
+        type(By.name("password_confirm"), password);
+        updateUser();
+    }
 
+    private void updateUser() {
+        manager.driver().findElement(By.xpath("//button[@type='submit']")).click();
+    }
 }

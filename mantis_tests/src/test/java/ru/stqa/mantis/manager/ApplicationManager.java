@@ -82,4 +82,5 @@ public class ApplicationManager {
         }
         return registrationHelper;
     }
+
 }

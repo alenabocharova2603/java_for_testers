@@ -54,7 +54,8 @@ public class MailHelper extends HelperBase{
         try {
             var session = Session.getInstance(new Properties());
             Store store = session.getStore("pop3");
-            store.connect("localhost", username, password); //устанавливаем соединение
+            store.connect("localhost", username, password);
+            //store.connect("localhost", "user1@localhost", "password"); //устанавливаем соединение
             var inbox = store.getFolder("INBOX"); //открываем почтовый ящик
             return inbox;
         } catch (MessagingException e) {

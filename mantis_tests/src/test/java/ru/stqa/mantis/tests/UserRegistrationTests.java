@@ -1,27 +1,46 @@
 package ru.stqa.mantis.tests;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.platform.commons.util.StringUtils;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.UserRegistration;
 
+import java.time.Duration;
+import java.util.List;
+import java.util.regex.Pattern;
+
 public class UserRegistrationTests extends TestBase{
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("singleUser")
     void canRegisterUser(UserRegistration registration) {
-        //var email = String.format("%s@localhost", username);
-        var randomUser = CommonFunctions.randomString(8);
-        app.jamesCli().addUser(String.format("%s@localhost", randomUser), "password"); //создать пользователя (адрес) на почтовом сервере (JamesHelper)
+        app.jamesCli().addUser(registration.email(), "password"); //создать пользователя (адрес) на почтовом сервере (JamesHelper)
 
         app.registration().canCreateUser(registration);
 
+        var messages = app.mail().receive(registration.email(), "password", Duration.ofSeconds(60));
+        var text = messages.get(0).content(); // текст из которого нужно извлечь ссылку
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        String url = null;
+        if (matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+            //System.out.println(url);
+        }
+        app.driver().get(url);
 
+        app.registration().canConfirmUser(CommonFunctions.randomString(10), "password");
+        app.http().login(registration.username(),"password");
+        Assertions.assertTrue(app.http().isLoggedIn());
+    }
 
-        //открыть браузер и заполнить форму создания (браузер) (разместить в классе помощника)
-        // отправить письмо с подтверждением на почту (браузер) (разместить в классе помощника)
-        // ждём (получить) письмо (MailHelper)
-        // извлечь из письма ссылку
-        //вернуться в браузер и пройти по полученной из письма ссылке
-        //завершаем регистрацию пользователя (браузер) (разместить в классе помощника)
-        //проверяем,  что пользователь может залогиниться (в обход пользовательского интерфейса через HttpSessionHelper)
+    public static List<UserRegistration> singleUser() {
+        var name = CommonFunctions.randomString(10);
+        return List.of(new UserRegistration()
+                .withUsername(name)
+                .withEmail(String.format("%s@localhost", name)));
     }
 }

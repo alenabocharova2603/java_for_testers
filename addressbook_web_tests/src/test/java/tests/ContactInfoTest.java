@@ -55,4 +55,18 @@ public class ContactInfoTest extends  TestBase {
         Assertions.assertEquals(expected, addresses);
     }
 
+    @Test
+    void testGeneral() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243",
+                    "+98567841456", "nina_kot@koler.com", "+4954723212453", "+1214314323", "+3225331144",
+                    "Joew@yandex.ru", "outlook@outlook.com", "75 3rd Ave, New York, NY 10003, USA"));
+        }
+        var contacts = app.hbm().getContactList();
+        var contact = contacts.get(0);
+        var phones = app.contacts().getPhones(contact);
+        var addresses = app.contacts().getAddresses(contact);
+        var emails = app.contacts().getEmails(contact);
+
+    }
 }

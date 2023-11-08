@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class MailTests extends TestBase{
 
     @Test
-    void canDrainInbox() {
+    void canDrainInbox() { // тест не взаимодействует с багрекером
         app.mail().drain("user1@localhost", "password");
 
     }
@@ -29,7 +29,7 @@ public class MailTests extends TestBase{
         var matcher = pattern.matcher(text);
         if (matcher.find()) {
          var url = text.substring(matcher.start(), matcher.end());
-         System.out.println();
+         System.out.println(url);
         }
     }
 

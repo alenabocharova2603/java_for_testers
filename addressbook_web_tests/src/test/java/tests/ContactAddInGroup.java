@@ -33,5 +33,14 @@ public class ContactAddInGroup extends TestBase{
                 app.contacts().addContactInToGroup(contactForDelete, groupData); // Контакт добавляется в группу
             }
         }
+        if (contactForDelete == null) {
+            groupData = groupList.get(0);
+            app.contacts().createContact(
+                    new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "", "", "", ""),
+                    groupData
+            );
+            var contacts = app.hbm().getContactsInGroup(groupData);
+            contactForDelete = contacts.get(0);
+        }
     }
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Set;
 
 public class ContactRemoveFromGroup extends TestBase{
 
@@ -30,7 +30,7 @@ public class ContactRemoveFromGroup extends TestBase{
         }
 
         if (contactForDelete == null) {
-            var contactListNotInGroup = app.hbm().getContactList();
+            var contactListNotInGroup = app.hbm().getContactsNotInGroup();
             if  ( (contactListNotInGroup != null) && (!contactListNotInGroup.isEmpty()) ) {
                 contactForDelete = contactListNotInGroup.get(0); // В полученном с БД списке найден контакт без группы
                 groupData = groupList.get(0);
@@ -57,13 +57,7 @@ public class ContactRemoveFromGroup extends TestBase{
         ContactData finalContactForDelete = contactForDelete;
         expectedList.removeIf(contactData -> finalContactForDelete.id().equals(contactData.id()));
 
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        expectedList.sort(compareById);
-        newContacts.sort(compareById);
-
-        Assertions.assertEquals(expectedList, newContacts);
+        Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newContacts));
     }
 
 

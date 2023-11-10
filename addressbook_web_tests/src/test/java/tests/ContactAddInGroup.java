@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Set;
 
 public class ContactAddInGroup extends TestBase{
@@ -34,18 +33,14 @@ public class ContactAddInGroup extends TestBase{
                     new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "", "", "", ""),
                     groupData
             );
+            var contacts = app.hbm().getContactsInGroup(groupData);
+            contactForAddToGroup = contacts.get(contacts.size() - 1);
         }
 
         var expectedContactListInGroup = app.hbm().getContactsInGroup(groupData);
         var newContactListInGroup = new ArrayList<>(oldContactListInGroup);
         newContactListInGroup.add(contactForAddToGroup);
 
-        Comparator<ContactData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        expectedContactListInGroup.sort(compareById);
-        newContactListInGroup.sort(compareById);
-
-        Assertions.assertEquals(expectedContactListInGroup, newContactListInGroup);
+        Assertions.assertEquals(Set.copyOf(expectedContactListInGroup), Set.copyOf(newContactListInGroup));
     }
 }

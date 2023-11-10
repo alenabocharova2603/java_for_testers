@@ -1,6 +1,8 @@
 package manager.hbm;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.DialectOverride;
+import org.hibernate.annotations.Where;
 
 import java.util.Date;
 import java.util.List;
@@ -28,8 +30,7 @@ public class GroupRecord {
     inverseJoinColumns = @JoinColumn(name = "id"))
     public List<ContactRecord> contacts;
 
-    public GroupRecord() {
-    }
+    public GroupRecord() {}
 
     public GroupRecord(int id, String name, String header, String footer) {
 
@@ -37,6 +38,7 @@ public class GroupRecord {
         this.name = name;
         this.header = header;
         this.footer = footer;
+
     }
 
 }

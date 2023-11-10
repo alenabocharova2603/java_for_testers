@@ -2,7 +2,12 @@ package tests;
 
 import model.ContactData;
 import model.GroupData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Set;
 
 public class ContactAddInGroup extends TestBase{
 
@@ -14,33 +19,33 @@ public class ContactAddInGroup extends TestBase{
 
         var groupList = app.hbm().getGroupList();
 
-        ContactData contactForDelete = null;
-        GroupData groupData = null;
-        for (int i = 0; i < groupList.size() - 1; i++) {
-            var contactListInGroup = app.hbm().getContactsInGroup(groupList.get(i));
-            if  ( (contactListInGroup != null) && (!contactListInGroup.isEmpty()) ) {
-                contactForDelete = contactListInGroup.get(0); //В группе нашелся контакт
-                groupData = groupList.get(i);
-                break;
-            }
+        ContactData contactForAddToGroup = null;
+        GroupData groupData = groupList.get(0);
+        var oldContactListInGroup = app.hbm().getContactsInGroup(groupData);
+
+        var contactListNotInGroup = app.hbm().getContactsNotInGroup();
+        if  ( (contactListNotInGroup != null) && (!contactListNotInGroup.isEmpty()) ) {
+            contactForAddToGroup = contactListNotInGroup.get(0); // В полученном с БД списке найден контакт без группы
+            app.contacts().addContactInToGroup(contactForAddToGroup, groupData); // Контакт добавляется в группу
         }
 
-        if (contactForDelete == null) {
-            var contactListNotInGroup = app.hbm().getContactList();
-            if  ( (contactListNotInGroup != null) && (!contactListNotInGroup.isEmpty()) ) {
-                contactForDelete = contactListNotInGroup.get(0); // В полученном с БД списке найден контакт без группы
-                groupData = groupList.get(0);
-                app.contacts().addContactInToGroup(contactForDelete, groupData); // Контакт добавляется в группу
-            }
-        }
-        if (contactForDelete == null) {
-            groupData = groupList.get(0);
+        if (contactForAddToGroup == null) {
             app.contacts().createContact(
                     new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "", "", "", ""),
                     groupData
             );
-            var contacts = app.hbm().getContactsInGroup(groupData);
-            contactForDelete = contacts.get(0);
         }
+
+        var expectedContactListInGroup = app.hbm().getContactsInGroup(groupData);
+        var newContactListInGroup = new ArrayList<>(oldContactListInGroup);
+        newContactListInGroup.add(contactForAddToGroup);
+
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        expectedContactListInGroup.sort(compareById);
+        newContactListInGroup.sort(compareById);
+
+        Assertions.assertEquals(expectedContactListInGroup, newContactListInGroup);
     }
 }

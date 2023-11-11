@@ -20,7 +20,6 @@ public class UserRegistrationTests extends TestBase{
         app.jamesCli().addUser(registration.email(), "password"); //создать пользователя (адрес) на почтовом сервере (JamesHelper)
 
         app.registration().canCreateUser(registration);
-
         var messages = app.mail().receive(registration.email(), "password", Duration.ofSeconds(60));
         var text = messages.get(0).content(); // текст из которого нужно извлечь ссылку
         var pattern = Pattern.compile("http://\\S*");
@@ -42,5 +41,23 @@ public class UserRegistrationTests extends TestBase{
         return List.of(new UserRegistration()
                 .withUsername(name)
                 .withEmail(String.format("%s@localhost", name)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomUser") //тест должен создавать пользователя через администратора
+        void canCreateUser(String user) {
+       var email = String.format("%s@localhost", user);
+       app.jamesApi().addUser(email, "password");
+
+       app.registration().startCreation(user); //нужен новый метод
+
+       var messages = app.mail().receive(email, "password", Duration.ofSeconds(10));
+       var url = CommonFunctions.extractUrl(messages.get(0).content());
+
+       app.registration().finishCreation(url,"password");
+
+       app.http().login(user,"password");
+       Assertions.assertTrue(app.http().isLoggedIn());
+
     }
 }

@@ -39,4 +39,12 @@ public class RegistrationHelper extends HelperBase {
     private void updateUser() {
         manager.driver().findElement(By.xpath("//button[@type='submit']")).click();
     }
+
+    public void startCreation(UserRegistration registration) {
+        openPageForCreateUser();
+        clickCreateNewAccaunt();
+        fillCreateNewAccaunt(registration);
+        clickCreateUser();
+
+    }
 }

@@ -42,9 +42,23 @@ public class RegistrationHelper extends HelperBase {
 
     public void startCreation(UserRegistration registration) {
         openPageForCreateUser();
-        clickCreateNewAccaunt();
-        fillCreateNewAccaunt(registration);
+        clickCreateNewAccount();
+        fillCreateNewAccount(registration);
         clickCreateUser();
 
+    }
+
+    private void clickCreateUser() {
+        manager.driver().findElement(By.xpath("//input[@value='Create User']")).click();
+    }
+
+    private void fillCreateNewAccount(UserRegistration registration) {
+        type(By.name("username"), registration.username());
+        type(By.name("realname"), registration.username());
+        type(By.name("email"), registration.email());
+    }
+
+    private void clickCreateNewAccount() {
+        manager.driver().findElement(By.xpath("//a[@href='manage_user_create_page.php']")).click();
     }
 }

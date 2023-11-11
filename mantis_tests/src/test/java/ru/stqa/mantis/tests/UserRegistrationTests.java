@@ -45,19 +45,33 @@ public class UserRegistrationTests extends TestBase{
 
     @ParameterizedTest
     @MethodSource("randomUser") //тест должен создавать пользователя через администратора
-        void canCreateUser(String user) {
-       var email = String.format("%s@localhost", user);
-       app.jamesApi().addUser(email, "password");
+        void canCreateUser(UserRegistration registration) {
+//       var email = String.format("%s@localhost", user);
+//       app.jamesApi().addUser(email, "password");
 
-       app.registration().startCreation(user); //нужен новый метод
+        app.jamesCli().addUser(registration.email(), "password");
 
-       var messages = app.mail().receive(email, "password", Duration.ofSeconds(10));
-       var url = CommonFunctions.extractUrl(messages.get(0).content());
+       app.registration().startCreation(registration); //нужен новый метод
+            var messages = app.mail().receive(registration.email(), "password", Duration.ofSeconds(60));
+            var text = messages.get(0).content(); // текст из которого нужно извлечь ссылку
+            var pattern = Pattern.compile("http://\\S*");
+            var matcher = pattern.matcher(text);
+            String url = null;
+            if (matcher.find()) {
+                url = text.substring(matcher.start(), matcher.end());
+                //System.out.println(url);
+            }
+            app.driver().get(url);
 
-       app.registration().finishCreation(url,"password");
+            app.registration().canConfirmUser(CommonFunctions.randomString(10), "password");
+            app.http().login(registration.username(),"password");
+            Assertions.assertTrue(app.http().isLoggedIn());
+//       var messages = app.mail().receive(email, "password", Duration.ofSeconds(10));
+//       var url = CommonFunctions.extractUrl(messages.get(0).content());
+//       app.registration().finishCreation(url,"password");
+//       app.http().login(user,"password");
+//       Assertions.assertTrue(app.http().isLoggedIn());
 
-       app.http().login(user,"password");
-       Assertions.assertTrue(app.http().isLoggedIn());
 
     }
 }

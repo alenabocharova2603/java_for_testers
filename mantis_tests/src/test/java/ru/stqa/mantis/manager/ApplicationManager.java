@@ -18,7 +18,7 @@ public class ApplicationManager {
     private MailHelper mailHelper;
     private RegistrationHelper registrationHelper;
     private JamesApiHelper jamesApiHelper;
-
+    private LoginHelper loginSession;
 
     public void init(String browser, Properties properties) {
         this.string = browser;
@@ -32,6 +32,7 @@ public class ApplicationManager {
         if (driver == null) {
             if ("firefox".equals(string)) {
                 driver = new FirefoxDriver();
+                driver.manage().window().maximize();
             } else if ("chrome".equals(string)) {
                 driver = new ChromeDriver();
         } else {
@@ -40,7 +41,7 @@ public class ApplicationManager {
             driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
             Runtime.getRuntime().addShutdownHook(new Thread(driver::quit));
             driver.get(properties.getProperty("web.baseUrl"));
-            driver.manage().window().setSize(new Dimension(550, 693));
+            //driver.manage().window().setSize(new Dimension(550, 693));
         }
         return driver;
     }
@@ -75,6 +76,13 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+    }
+
+    public LoginHelper loginSession() {
+        if (loginSession == null) {
+            loginSession = new LoginHelper(this);
+        }
+        return loginSession;
     }
 
     public RegistrationHelper registration() {

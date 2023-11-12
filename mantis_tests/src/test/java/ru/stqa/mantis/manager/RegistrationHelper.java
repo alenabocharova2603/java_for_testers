@@ -48,6 +48,19 @@ public class RegistrationHelper extends HelperBase {
 
     }
 
+    private void openPageForCreateUser() {
+        linkManage();
+        openUsers();
+    }
+
+    private void openUsers() {
+        manager.driver().findElement(By.xpath("//a[@href='/mantisbt-2.26.0/manage_user_page.php']")).click();
+    }
+
+    private void linkManage() {
+        manager.driver().findElement(By.xpath("//a[@href='/mantisbt-2.26.0/manage_overview_page.php']")).click();
+    }
+
     private void clickCreateUser() {
         manager.driver().findElement(By.xpath("//input[@value='Create User']")).click();
     }

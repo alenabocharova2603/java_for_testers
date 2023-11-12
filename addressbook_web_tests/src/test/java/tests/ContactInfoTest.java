@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 //тесты на проверку того, что информация в адресной книге предствалена корректно (данные между БД и пользовательским интерфейсом совпадают)
 public class ContactInfoTest extends  TestBase {
-    
+
 
 
     @Test

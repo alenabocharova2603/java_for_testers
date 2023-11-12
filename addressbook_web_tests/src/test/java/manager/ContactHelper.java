@@ -99,6 +99,12 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contact.address());
         type(By.name("mobile"), contact.mobile());
         type(By.name("email"), contact.email());
+        type(By.name("home"), contact.home());
+        type(By.name("work"), contact.work());
+        //type(By.name("secondary"), contact.secondary());
+        type(By.name("email2"), contact.email2());
+        type(By.name("email3"), contact.email3());
+        type(By.name("address2"), contact.address2());
         //attach(By.name("photo"),contact.photo());
     }
 

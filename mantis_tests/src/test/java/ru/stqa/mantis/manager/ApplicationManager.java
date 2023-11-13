@@ -21,8 +21,6 @@ public class ApplicationManager {
     private LoginHelper loginSession;
     private DeveloperMailHelper developerMailHelper;
 
-    private UserHelper userHelper;
-
     public void init(String browser, Properties properties) {
         this.string = browser;
         this.properties = properties;
@@ -107,13 +105,6 @@ public class ApplicationManager {
             developerMailHelper = new DeveloperMailHelper(this);
         }
         return developerMailHelper;
-    }
-
-    public UserHelper userHelper() {
-        if (userHelper == null) {
-            userHelper = new UserHelper(this);
-        }
-        return userHelper;
     }
 
 }

@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 
 public class UserRegistrationTests extends TestBase{
 
+    private DeveloperMailUser developerMailUser;
+
     @ParameterizedTest
     @MethodSource("singleUser")
     void canRegisterUser(UserRegistration registration) {
@@ -49,7 +51,6 @@ public class UserRegistrationTests extends TestBase{
     public static Stream<String> randomUser() {
         UserRegistration userRegistration = new UserRegistration("", "");
         return Stream.of(CommonFunctions.randomString(8));
-
     }
     @ParameterizedTest
     @MethodSource("singleUser") //тест должен создавать пользователя через администратора
@@ -73,7 +74,39 @@ public class UserRegistrationTests extends TestBase{
         app.registration().canConfirmUser(registration.username(), "password");
         app.http().login(registration.username(),"password");
         Assertions.assertTrue(app.http().isLoggedIn());
-
-
     }
+
+    @Test
+    void canCreateUserByMail() {
+        var password = "password";
+        developerMailUser = app.developerMail().addUser();
+        app.loginSession().login("administrator", "root");
+
+        var email = String.format("%s@developermail.com", developerMailUser.name());
+        app.registration().startCreation(developerMailUser, email);
+
+        var message = app.developerMail().receive(developerMailUser, Duration.ofMinutes(5));
+
+        int gg = 5;
+        /*var text = messages.get(0).content(); // текст из которого нужно извлечь ссылку
+        var pattern = Pattern.compile("http://\\S*");
+        var matcher = pattern.matcher(text);
+        String url = null;
+        if (matcher.find()) {
+            url = text.substring(matcher.start(), matcher.end());
+            //System.out.println(url);
+        }
+        app.driver().get(url);
+
+        app.registration().canConfirmUser(registration.username(), "password");
+        app.http().login(registration.username(),"password");
+        Assertions.assertTrue(app.http().isLoggedIn());*/
+    }
+
+    @AfterEach
+    void deleteMailUser() {
+        app.developerMail().deleteUser(developerMailUser);
+    }
+
+
 }

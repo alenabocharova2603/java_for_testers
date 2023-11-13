@@ -1,6 +1,7 @@
 package ru.stqa.mantis.manager;
 
 import org.openqa.selenium.By;
+import ru.stqa.mantis.model.DeveloperMailUser;
 import ru.stqa.mantis.model.UserRegistration;
 
 public class RegistrationHelper extends HelperBase {
@@ -45,7 +46,13 @@ public class RegistrationHelper extends HelperBase {
         clickCreateNewAccount();
         fillCreateNewAccount(registration);
         clickCreateUser();
+    }
 
+    public void startCreation(DeveloperMailUser developerMailUser, String email) {
+        openPageForCreateUser();
+        clickCreateNewAccount();
+        fillCreateNewAccount(developerMailUser, email);
+        clickCreateUser();
     }
 
     private void openPageForCreateUser() {
@@ -69,6 +76,12 @@ public class RegistrationHelper extends HelperBase {
         type(By.name("username"), registration.username());
         type(By.name("realname"), registration.username());
         type(By.name("email"), registration.email());
+    }
+
+    private void fillCreateNewAccount(DeveloperMailUser developerMailUser, String email) {
+        type(By.name("username"), developerMailUser.name());
+        type(By.name("realname"), developerMailUser.name());
+        type(By.name("email"), email);
     }
 
     private void clickCreateNewAccount() {

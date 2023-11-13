@@ -1,17 +1,31 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class ContactRemoveFromGroup extends TestBase{
 
-    @Test
-    void canContactRemoveFromGroup() {
+    public static List<ContactData> singleRandomContact() {
+        return List.of(new ContactData()
+                .withFirstname(CommonFunctions.randomString(10))
+                .withLastname(CommonFunctions.randomString(10))
+                .withAddress(CommonFunctions.randomString(10))
+                .withMobile(CommonFunctions.randomString(10))
+                .withEmail(CommonFunctions.randomString(10)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    void canContactRemoveFromGroup(ContactData contact) {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
@@ -39,13 +53,11 @@ public class ContactRemoveFromGroup extends TestBase{
         }
 
         if (contactForDelete == null) {
+            app.contacts().createContact(contact);
+            contact = contact.withId(app.hbm().getIdContactByName(contact.firstname()));
             groupData = groupList.get(0);
-            app.contacts().createContact(
-                    new ContactData("", "Nina", "Ivanova", "3 Internacounal, 243", "+98567841456", "nina_kot@koler.com", "", "", "","","",""),
-                    groupData
-            );
-            var contacts = app.hbm().getContactsInGroup(groupData);
-            contactForDelete = contacts.get(0);
+            app.contacts().addContactInToGroup(contact, groupData);
+            contactForDelete = contact;
         }
 
         var oldContacts = app.hbm().getContactsInGroup(groupData);

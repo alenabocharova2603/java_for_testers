@@ -1,8 +1,13 @@
 package ru.stqa.mantis.manager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.mantis.model.DeveloperMailUser;
 import ru.stqa.mantis.model.UserRegistration;
+
+import java.time.Duration;
 
 public class RegistrationHelper extends HelperBase {
 
@@ -53,6 +58,7 @@ public class RegistrationHelper extends HelperBase {
         clickCreateNewAccount();
         fillCreateNewAccount(developerMailUser, email);
         clickCreateUser();
+        waitElementAppears(new By.ByXPath("//*[text()[contains(.,'Password sends the confirmation URL via e-mail')]]"), Duration.ofMinutes(5));
     }
 
     private void openPageForCreateUser() {
@@ -70,6 +76,10 @@ public class RegistrationHelper extends HelperBase {
 
     private void clickCreateUser() {
         manager.driver().findElement(By.xpath("//input[@value='Create User']")).click();
+    }
+
+    private WebElement waitElementAppears (By.ByXPath xPath, Duration duration) {
+        return new WebDriverWait(manager.driver(), duration).until(ExpectedConditions.presenceOfElementLocated(xPath));
     }
 
     private void fillCreateNewAccount(UserRegistration registration) {

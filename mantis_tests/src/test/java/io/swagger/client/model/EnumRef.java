@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * EnumRef
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2023-11-13T22:29:42.833+01:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2023-11-13T23:29:20.521+01:00")
 public class EnumRef {
   @SerializedName("id")
   private Long id = null;

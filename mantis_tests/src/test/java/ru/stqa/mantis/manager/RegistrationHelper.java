@@ -84,7 +84,7 @@ public class RegistrationHelper extends HelperBase {
 
     private void fillCreateNewAccount(UserRegistration registration) {
         type(By.name("username"), registration.username());
-        type(By.name("realname"), registration.username());
+        type(By.name("realname"), registration.realname());
         type(By.name("email"), registration.email());
     }
 

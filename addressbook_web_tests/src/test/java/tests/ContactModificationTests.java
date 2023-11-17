@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.Allure;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,8 @@ public class ContactModificationTests extends TestBase{
         };
         newContacts.sort(compareById);
         expectedList.sort(compareById);
+        Allure.step("Validating results", step -> {
         Assertions.assertEquals(newContacts,expectedList);
+    });
     }
 }

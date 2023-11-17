@@ -24,7 +24,7 @@ public class GroupHelper extends HelperBase{
         }
     }
 
-
+    @Step
     public void createGroup(GroupData group) {
         openGroupsPage();
         initGroupCreation();
@@ -40,7 +40,7 @@ public class GroupHelper extends HelperBase{
         removeSelectedGroups();
         returnToGroupsPage();
     }
-
+    @Step
     public void modifyGroup(GroupData group, GroupData modifiedGroup) {
         openGroupsPage();
         selectGroup(group);
@@ -72,6 +72,7 @@ public class GroupHelper extends HelperBase{
         click(By.name("update"));
     }
 
+    @Step
     private void fillGroupForm(GroupData group) {
         type(By.name("group_name"), group.name());
         type(By.name("group_header"), group.header());

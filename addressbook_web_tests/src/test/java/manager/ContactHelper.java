@@ -1,4 +1,5 @@
 package manager;
+import io.qameta.allure.Step;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
@@ -18,12 +19,13 @@ public class ContactHelper extends HelperBase {
 
         super(manager);
     }
+    @Step
     public void createContact(ContactData contact) {
         openAddNewPage();
         fillContactForm(contact);
         click(By.name("submit"));
     }
-
+    @Step
     public void createContact(ContactData contact, GroupData group) {
         openAddNewPage();
         fillContactForm(contact);
@@ -34,7 +36,7 @@ public class ContactHelper extends HelperBase {
     private void selectGroup(GroupData group) {
        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }
-
+    @Step
     public void removeContact(ContactData contact) {
         openHomePage();
         selectContact(contact);
@@ -54,7 +56,7 @@ public class ContactHelper extends HelperBase {
         manager.driver.findElement(By.name("remove")).click();
     }
 
-
+    @Step
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
         openHomePage();
         selectContact(contact);
@@ -116,7 +118,7 @@ public class ContactHelper extends HelperBase {
         openHomePage();
       return  manager.driver.findElements(By.name("selected[]")).size();
     }
-
+    @Step
     public void removeAllContacts() {
         openHomePage();
         selectAllContacts();
@@ -174,7 +176,7 @@ public class ContactHelper extends HelperBase {
         }
         return result;
     }
-
+    @Step
     public void addContactInToGroup(ContactData contactNoInGroup, GroupData groupData) {
         openHomePage();
         selectContact(contactNoInGroup);

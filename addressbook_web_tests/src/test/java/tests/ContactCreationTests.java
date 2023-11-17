@@ -3,6 +3,7 @@ package tests;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
+import io.qameta.allure.Allure;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
@@ -65,7 +66,9 @@ public class ContactCreationTests extends TestBase {
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.add(contact.withId(maxId));
         expectedList.sort(compareById);
+        Allure.step("Validating results", step -> {
         Assertions.assertEquals(expectedList, newContacts);
+        });
         //app.contacts().openHomePage();
 
     }
@@ -82,8 +85,10 @@ public class ContactCreationTests extends TestBase {
         var oldContacts = app.contacts().getList();
         app.contacts().createContact(contact);
         var newContacts = app.contacts().getList();
+        Allure.step("Validating results", step -> {
         Assertions.assertEquals(newContacts, oldContacts);
         app.contacts().openHomePage();
+        });
     }
 
     @Test
@@ -94,15 +99,19 @@ public class ContactCreationTests extends TestBase {
                 .withAddress(CommonFunctions.randomString(10))
                 .withMobile(CommonFunctions.randomString(10))
                 .withEmail(CommonFunctions.randomString(10));
+        Allure.step("Validating results", step -> {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
+    });
         var group = app.hbm().getGroupList().get(0);
 
         var oldRelated = app.hbm().getContactsInGroup(group);
         app.contacts().createContact(contact,group);
         var newRelated = app.hbm().getContactsInGroup(group);
+        Allure.step("Validating results", step -> {
         Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+        });
     }
 
 }

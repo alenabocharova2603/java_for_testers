@@ -31,10 +31,14 @@ public class GroupRemovalTests extends TestBase {
 
     @Test
     void canRemoveAllGroupsAtOnce() {
-        if (app.hbm().getGroupCount() == 0) {
-            app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
-        }
+        Allure.step("Checking precondition", step -> {
+            if (app.hbm().getGroupCount() == 0) {
+                app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
+            }
+        });
         app.groups().removeAllGroups();
-        Assertions.assertEquals(0, app.hbm().getGroupCount());
+        Allure.step("Validating results", step -> {
+            Assertions.assertEquals(0, app.hbm().getGroupCount());
+        });
     }
 }

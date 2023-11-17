@@ -1,6 +1,7 @@
 package tests;
 
 import common.CommonFunctions;
+import io.qameta.allure.Allure;
 import model.ContactData;
 import model.GroupData;
 import org.junit.jupiter.api.Assertions;
@@ -26,10 +27,11 @@ public class ContactAddInGroup extends TestBase{
     @ParameterizedTest
     @MethodSource("singleRandomContact")
     void canAddContactInGroup(ContactData contact) {
+        Allure.step("Checking precondition in Groups", step -> {
         if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
-
+        });
         var groupList = app.hbm().getGroupList();
 
         ContactData contactForAddToGroup = null;
@@ -52,7 +54,8 @@ public class ContactAddInGroup extends TestBase{
         var expectedContactListInGroup = app.hbm().getContactsInGroup(groupData);
         var newContactListInGroup = new ArrayList<>(oldContactListInGroup);
         newContactListInGroup.add(contactForAddToGroup);
-
+        Allure.step("Validating results", step -> {
         Assertions.assertEquals(Set.copyOf(expectedContactListInGroup), Set.copyOf(newContactListInGroup));
+        });
     }
 }

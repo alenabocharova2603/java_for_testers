@@ -26,10 +26,8 @@ public class ContactRemoveFromGroup extends TestBase{
     @ParameterizedTest
     @MethodSource("singleRandomContact")
     void canContactRemoveFromGroup(ContactData contact) {
-        //workAround
-        Assertions.assertTrue(true);
 
-        /*if (app.hbm().getGroupCount() == 0) {
+        if (app.hbm().getGroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "group name", "group header", "group footer"));
         }
 
@@ -72,7 +70,7 @@ public class ContactRemoveFromGroup extends TestBase{
         ContactData finalContactForDelete = contactForDelete;
         expectedList.removeIf(contactData -> finalContactForDelete.id().equals(contactData.id()));
 
-        Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newContacts));*/
+        Assertions.assertEquals(Set.copyOf(expectedList), Set.copyOf(newContacts));
     }
 
 

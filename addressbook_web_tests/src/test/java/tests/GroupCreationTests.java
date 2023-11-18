@@ -60,10 +60,8 @@ public class GroupCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("randomGroups")
     public void canCreateGroups(GroupData group) {
-        //workAround
-        Assertions.assertTrue(true);
 
-        /*var oldGroups = app.hbm().getGroupList();
+        var oldGroups = app.hbm().getGroupList();
         app.groups().createGroup(group);
         var newGroups = app.hbm().getGroupList();
 
@@ -74,7 +72,7 @@ public class GroupCreationTests extends TestBase {
        expectedList.add(group.withId(newId));
         Allure.step("Validating results", step -> {
         Assertions.assertEquals(Set.copyOf(newGroups), Set.copyOf(expectedList));
-        });*/
+        });
     }
 
     public static List<GroupData> negativeGroupProvider() {

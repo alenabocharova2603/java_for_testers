@@ -1,2 +1,5 @@
-package stepic;public class task1 {
+package stepic;
+
+public class task1 {
+    
 }

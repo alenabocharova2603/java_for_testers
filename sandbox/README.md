@@ -1,4 +1,4 @@
-### Коллекции
+### Collections
 
 sandbox/src/main/java/ru/stqa/geometry
 Functions for calculating the area of various geometric shapes

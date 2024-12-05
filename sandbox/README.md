@@ -22,3 +22,17 @@ try {
 In the "catch" block, the exception type IllegalArgumentException is used, which is part of the standard Java library – a convenient way to signal that the function/constructor parameters are invalid.
 
 If no exception is thrown, meaning we proceed to the next line after calling the constructor, it indicates that the behavior is not as expected (an exception was expected because it is not possible to calculate the area from a negative number). In this case, the test should fail, and therefore Assertions.fail() is called.
+
+
+3) Assertions Method
+   
+| Method                 | Description                                                                          |
+|------------------------|--------------------------------------------------------------------------------------|
+| `assertEquals(a, b)`   | Verifies that `a` is equal to `b`.                                                   |
+| `assertNotEquals(a, b)`| Verifies that `a` is not equal to `b`.                                               |
+| `assertTrue(condition)`| Verifies that the condition `condition` is true.                                     |
+| `assertFalse(condition)`| Verifies that the condition `condition` is false.                                   |
+| `assertNull(obj)`      | Verifies that the object `obj` is null.                                              |
+| `assertNotNull(obj)`   | Verifies that the object `obj` is not null.                                          |
+| `assertThrows()`       | Verifies that the code throws the specified exception.                               |
+| `fail()`               | Forces the test to fail. 
